@@ -1,0 +1,3 @@
+/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A1/a1_starter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A1/a1_starter/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A1/a1_starter/cmake-build-debug/CMakeFiles/tinyrender.dir
