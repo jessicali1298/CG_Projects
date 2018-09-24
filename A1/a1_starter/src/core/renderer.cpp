@@ -141,7 +141,7 @@ void Renderer::render() {
                     px = ((x - width / 2.f + sampler.next()) / (width / 2.f) * scaling * aspectRatio);
                     py = (-((y - height / 2.f + sampler.next()) / (height / 2.f) * scaling));
                     aug4D = v4f(px, py, -1.f, 0.f);
-                    dir = aug4D * inverseView;
+                    dir = glm::normalize(aug4D * inverseView);
                     Ray ray = Ray(eye, dir);
 
                     pixelColor = integrator->render(ray,sampler);
