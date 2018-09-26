@@ -26,26 +26,32 @@ struct SimpleIntegrator : Integrator {
         //4. Map the incoming direction i.wi to local coordinates by using the hit point frameNs.toLocal() transform.
         //5. Evaluate the BRDF locally and the light, and set the Li term accordingly.
 
-        v3f position = scene.getFirstLightPosition();
-        v3f intensity = scene.getFirstLightIntensity();
+
         SurfaceInteraction info;
-        float R, R2;
-        R = glm::length(info.p - position);
-        R2 = glm::pow(R,2);
-        bool intersect = scene.bvh->intersect(ray, info);
-        info.wi = glm::normalize(info.frameNs.toLocal(position - info.p));
-        if (intersect) {
-            Li = glm::abs(intensity/(R2)*getBSDF(info)->eval(info));
+        float R2;
+
+        if (scene.bvh->intersect(ray, info)) {
+                v3f position = scene.getFirstLightPosition();
+                v3f intensity = scene.getFirstLightIntensity();
+                R2 = glm::pow(glm::length(info.p - position),2);
+                info.wi = glm::normalize(info.frameNs.toLocal(position - info.p));
+                Li = intensity/(R2)*getBSDF(info)->eval(info);
+
+                //PART 1.4 Making Shadow
+                v3f sDir = glm::normalize(position - info.p);
+                Ray shadowRay = TinyRender::Ray(info.p,sDir,Epsilon,glm::length(position-info.p) - Epsilon);
+                if(scene.bvh->intersect(shadowRay)) {
+                        Li = v3f(0.f);
+                }
         }
 
         //PART 1.4 Making Shadow
-        v3f dir = glm::normalize(position - info.p);
-        Ray shadowRay = Ray(info.p,dir);
-        shadowRay.max_t = glm::length(position-info.p);
-        if(scene.bvh->intersect(shadowRay, info)) {
-                Li = v3f(0.f);
-        }
-        return Li;
+//        v3f dir = glm::normalize(position - info.p);
+//        Ray shadowRay = Ray(info.p,dir,Epsion, glm::length(position-info.p) - Epsilon);
+//        if(scene.bvh->intersect(shadowRay, info)) {
+//                Li = v3f(0.f);
+//        }
+        return glm::abs(Li);
     }
 };
 

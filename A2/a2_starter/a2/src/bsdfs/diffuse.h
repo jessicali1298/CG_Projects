@@ -37,11 +37,12 @@ struct DiffuseBSDF : BSDF {
         // TODO: Implement this
         //1. Check that the incoming and outgoing rays are headed in the correct directions; if not return black.
         //2. Otherwise return the evaluated albedo divided by π, and multiplied by the cosine factor cosθi.
-        if (Frame::cosTheta(i.wi) >= 0.f && Frame::cosTheta(i.wi) <= 1.f
-            && Frame::cosTheta(i.wo) >= 0.f ) {
-            //&& Frame::cosTheta(i.wo) <= 1.f
-            v3f diffuseBRDF = albedo->eval(worldData, i)/M_PI*Frame::cosTheta(i.wi);
+        if (Frame::cosTheta(i.wi) >= 0.f  && Frame::cosTheta(i.wo) >= 0.f) {
+            //&& Frame::cosTheta(i.wi) <= 1.f && Frame::cosTheta(i.wo) <= 1.f
+            //printf("cos wi: %f, cos wo: %f\n", Frame::cosTheta(i.wi),Frame::cosTheta(i.wo));
+            v3f diffuseBRDF = (albedo->eval(worldData, i))/M_PI*(Frame::cosTheta(i.wi));
             val = diffuseBRDF;
+            //val = v3f(1.f,0.f,0.f);
         }
 
         return val;

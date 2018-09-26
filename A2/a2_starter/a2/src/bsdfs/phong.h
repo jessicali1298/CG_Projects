@@ -72,7 +72,8 @@ struct PhongBSDF : BSDF {
         float cosAlpha = glm::dot(i.wo,specDirection)/glm::length(i.wo)/glm::length(specDirection); //changed i.wi before
 
         if (Frame::cosTheta(i.wi) >= 0 && Frame::cosTheta(i.wi) <= 1
-        && Frame::cosTheta(i.wo) >= 0 && Frame::cosTheta(i.wo) <= 1) {
+        && Frame::cosTheta(i.wo) >= 0 ) {
+            //&& Frame::cosTheta(i.wo) <= 1
             v3f phongBRDF = (diffuseReflect/M_PI) + (specReflect*((exp+2)/(2*M_PI))*glm::pow(cosAlpha, exp));
             val = phongBRDF*Frame::cosTheta(i.wi);
         }

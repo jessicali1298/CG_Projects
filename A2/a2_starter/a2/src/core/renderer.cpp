@@ -95,7 +95,7 @@ void Renderer::render() {
         v3f pixelColor;
 
 
-        Sampler sampler = TinyRender::Sampler(446);
+
 
         int i = 0;
         int j;
@@ -127,14 +127,15 @@ void Renderer::render() {
 
 
 //--------------------------------------BONUS-------------------------------------------
+                Sampler sampler = TinyRender::Sampler(446);
                 v3f sumColor = v3f(0.f,0.f,0.f);
 
                 for (j=0; j<16; j++) {
                     float px = ((x - width / 2.f + sampler.next()) / (width / 2.f) * scaling * aspectRatio);
-                    float py = (-((y - height / 2.f + sampler.next()) / (height / 2.f) * scaling));
+                    float py = -((y - height / 2.f + sampler.next()) / (height / 2.f) * scaling);
                     v4f aug4D = v4f(px, py, -1.f, 0.f);
                     v4f dir = aug4D * inverseView;
-                    //dir = glm::normalize(dir);
+                    dir = glm::normalize(dir);
                     Ray ray = Ray(eye, dir);
 
                     pixelColor = integrator->render(ray,sampler);
