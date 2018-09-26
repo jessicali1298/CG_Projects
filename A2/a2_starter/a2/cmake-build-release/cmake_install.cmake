@@ -1,4 +1,4 @@
-# Install script for directory: /Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2
+# Install script for directory: /Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

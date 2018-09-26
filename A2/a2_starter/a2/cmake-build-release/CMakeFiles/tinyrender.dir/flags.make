@@ -6,5 +6,5 @@ CXX_FLAGS = -O3 -DNDEBUG   -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/local/Cellar/sdl2/2.0.8/include/SDL2 -I/usr/local/include -I"/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/src" -I"/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/externals" -I"/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/externals/glm" 
+CXX_INCLUDES = -I/usr/local/Cellar/sdl2/2.0.8/include/SDL2 -I/usr/local/include -I/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/src -I/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/externals -I/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/externals/glm 
 

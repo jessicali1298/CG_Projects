@@ -48,10 +48,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2"
+CMAKE_SOURCE_DIR = /Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-release"
+CMAKE_BINARY_DIR = /Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-release
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-release/CMakeFiles" "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-release/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-release/CMakeFiles /Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-release/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-release/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-release/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

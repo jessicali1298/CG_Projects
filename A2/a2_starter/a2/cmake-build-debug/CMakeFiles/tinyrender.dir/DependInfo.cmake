@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/src/core/integrator.cpp" "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/integrator.cpp.o"
-  "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/src/core/renderer.cpp" "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o"
-  "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/src/core/renderpass.cpp" "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/renderpass.cpp.o"
-  "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/src/main.cpp" "/Users/j.li/School/U3 FALL/ECSE 446/Assignments/A2/a2_starter/a2/cmake-build-debug/CMakeFiles/tinyrender.dir/src/main.cpp.o"
+  "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/src/core/integrator.cpp" "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/integrator.cpp.o"
+  "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/src/core/renderer.cpp" "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o"
+  "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/src/core/renderpass.cpp" "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/renderpass.cpp.o"
+  "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/src/main.cpp" "/Users/j.li/School/U3_FALL/ECSE_446/Assignments/A2/a2_starter/a2/cmake-build-debug/CMakeFiles/tinyrender.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
