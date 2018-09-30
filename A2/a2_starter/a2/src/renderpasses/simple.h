@@ -91,6 +91,12 @@ struct SimplePass : RenderPass {
              *   this->lightPos
              *   this->lightIntensity
              */
+            GLuint lightPosUniform = GLuint(glGetUniformLocation(obj.shaderID, "lightPos"));
+            GLuint lightIntensityUniform = GLuint(glGetUniformLocation(obj.shaderID,"lightIntensity"));
+
+            glUniform3f(lightPosUniform,this->lightPos.x,this->lightPos.y,this->lightPos.z);
+            glUniform3f(lightIntensityUniform,this->lightIntensity.x,this->lightIntensity.y,this->lightIntensity.z);
+
 
             /**
              * 2) Pass shader-specific parameters via uniforms:
@@ -100,9 +106,21 @@ struct SimplePass : RenderPass {
              *   obj.exponent
              */
 
+             if(obj.shaderIdx==DIFFUSE_SHADER_IDX) {
+                 glUniform3f(obj.albedoUniform,obj.albedo.x,obj.albedo.y,obj.albedo.z);
+             }
+             else {
+                 glUniform3f(obj.rho_d_Uniform,obj.rho_d.x,obj.rho_d.y,obj.rho_d.z);
+                 glUniform3f(obj.rho_s_Uniform,obj.rho_s.x,obj.rho_s.y,obj.rho_s.z);
+                 glUniform1f(obj.exponentUniform,obj.exponent);
+             }
+
             /**
              * 3) Bind VAO, draw triangles and clear.
              */
+             glBindVertexArray(obj.vao);
+             glDrawArrays(GL_TRIANGLES,0,obj.nVerts);
+             glBindVertexArray(0);
         }
 
         RenderPass::render();

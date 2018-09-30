@@ -32,18 +32,9 @@ struct SimpleIntegrator : Integrator {
         float R2;
 
         if (scene.bvh->intersect(ray, info)) {
-//                v3f position = scene.getFirstLightPosition();
-//                v3f intensity = scene.getFirstLightIntensity();
                 R2 = glm::pow(glm::length(info.p - position),2);
                 info.wi = glm::normalize(info.frameNs.toLocal(position - info.p));
                 Li = intensity/(R2)*getBSDF(info)->eval(info);
-
-                //PART 1.4 Making Shadow
-//                v3f sDir = glm::normalize(position - info.p);
-//                Ray shadowRay = Ray(info.p,sDir,Epsilon,glm::length(position-info.p) - Epsilon);
-//                if(scene.bvh->intersect(shadowRay)) {
-//                        Li = v3f(0.f);
-//                }
         }
 
         //PART 1.4 Making Shadow
@@ -56,4 +47,10 @@ struct SimpleIntegrator : Integrator {
     }
 };
 
+//PART 1.4 Making Shadow
+//                v3f sDir = glm::normalize(position - info.p);
+//                Ray shadowRay = Ray(info.p,sDir,Epsilon,glm::length(position-info.p) - Epsilon);
+//                if(scene.bvh->intersect(shadowRay)) {
+//                        Li = v3f(0.f);
+//                }
 TR_NAMESPACE_END
