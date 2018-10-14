@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "core/core.h"
 TR_NAMESPACE_BEGIN
 
 /**
@@ -117,54 +118,98 @@ namespace Warp {
 inline v3f squareToUniformSphere(const p2f& sample) {
     v3f v(0.f);
 	// TODO: Implement this
+	float r, phi, wx,wy,wz;
+	wz = 2*sample.x - 1;
+	r = glm::sqrt(1-glm::pow(wz,2));
+	phi = 2*M_PI*sample.y;
+	wx = r*glm::cos(phi);
+	wy = r*glm::sin(phi);
+	v = v3f(wx,wy,wz);
+
     return v;
 }
 
 inline float squareToUniformSpherePdf() {
     float pdf = 0.f;
 	// TODO: Implement this
+	pdf = 1/(4*M_PI);
+
     return pdf;
 }
 
 inline v3f squareToUniformHemisphere(const p2f& sample) {
     v3f v(0.f);
 	// TODO: Implement this
+    float r, phi, wx,wy,wz;
+    wz = glm::abs(2*sample.x - 1);
+    r = glm::sqrt(1-glm::pow(wz,2));
+    phi = 2*M_PI*sample.y;
+    wx = r*glm::cos(phi);
+    wy = r*glm::sin(phi);
+    v = v3f(wx,wy,wz);
+
     return v;
 }
 
 inline float squareToUniformHemispherePdf(const v3f& v) {
     float pdf = 0.f;
 	// TODO: Implement this
+	pdf = 1/(2*M_PI);
     return pdf;
 }
 
 inline v2f squareToUniformDiskConcentric(const p2f& sample) {
     v2f v(0.f);
 	// TODO: Implement this (optional)
+    float r, phi,wx,wy;
+    r = sample.x;
+    phi = 2*M_PI*sample.y;
+    wx = sqrt(r)*glm::cos(phi);
+    wy = sqrt(r)*glm::sin(phi);
+    v = v2f(wx,wy);
+
     return v;
 }
 
 inline v3f squareToCosineHemisphere(const p2f& sample) {
     v3f v(0.f);
 	// TODO: Implement this
+	float wz;
+    v2f DiskSample = squareToUniformDiskConcentric(sample);
+    wz = glm::sqrt(1-pow(glm::length(DiskSample),2));
+    v = v3f(DiskSample.x,DiskSample.y,wz);
+
     return v;
 }
 
 inline float squareToCosineHemispherePdf(const v3f& v) {
     float pdf = 0.f;
 	// TODO: Implement this
+	pdf = v.z/M_PI;
+
     return pdf;
 }
 
 inline v3f squareToPhongLobe(const p2f& sample) {
     v3f v(0.f);
 	// TODO: Implement this
+    float wx, wy, wz,theta, phi,exp;
+    exp = 300.f;
+    theta = glm::acos(glm::pow(1-sample.x,(1/(exp+2))));
+    phi = 2*M_PI*sample.y;
+    wx = glm::sin(theta)*glm::cos(phi);
+    wy = glm::sin(theta)*glm::sin(phi);
+    wz = cos(theta);
+    v = v3f(wx,wy,wz);
+
     return v;
 }
 
 inline float squareToPhongLobePdf(const v3f& v) {
     float pdf = 0.f;
 	// TODO: Implement this
+	float exp = 300.f;
+    pdf = (exp+2)/(2*M_PI)*glm::pow(v.z,exp);
     return pdf;
 }
 

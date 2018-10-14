@@ -90,21 +90,81 @@ bool Renderer::init(const bool isRealTime, bool nogui) {
 
 void Renderer::render() {
     if (realTime) {
-        /**
-         * 1) Detect and handle the quit event.
-         * 2) Call the render function using renderpass->render().
-         * 3) Output the rendered image into the GUI window using SDL_GL_SwapWindow(renderpass->window).
-         */
-	    // TODO: Add previous assignment code (if needed)
+        while (1) {
+            SDL_Event event;
+            SDL_PollEvent(&event);
+            if(event.type == SDL_QUIT) {
+                break;
+            }
+            renderpass->render();
+            SDL_GL_SwapWindow(renderpass->window);
+        }
     } else {
-        /**
-         * 1) Calculate the camera perspective, the camera-to-world transformation matrix and the aspect ratio.
-         * 2) Clear integral RGB buffer.
-         * 3) Loop over all pixels on the image plane.
-         * 4) Generate a ray through each pixel center.
-         * 5) Splat their contribution onto the image plane.
-         */
-	    // TODO: Add previous assignment code (if needed)
+
+        // 1.1 Off-line Rendering Loop
+
+        v3f eye = scene.config.camera.o;
+        v3f at = scene.config.camera.at;
+        v3f up = scene.config.camera.up;
+        float fov = scene.config.camera.fov;
+        float width = scene.config.width;
+        float height = scene.config.height;
+        v3f pixelColor;
+
+
+
+
+        int i = 0;
+        int j;
+        // 1) calculate camera perspectives
+        glm::mat4 inverseView = glm::lookAt(eye,at,up);
+        float scaling = tan((M_PI*fov/180.f) / 2.f);
+        float aspectRatio = width/height;
+
+        // 2) Clear integral RGB buffer
+        integrator->rgb->clear();
+
+        // 3) Loop over all pixels on the image plane
+        Sampler sampler = TinyRender::Sampler(260665795);
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+
+//------------------------------------PART 1.1------------------------------------------
+//                px = (x - width / 2.f + 0.5f) / (width / 2.f) * scaling * aspectRatio;
+//                py = -((y - height / 2.f + 0.5f) / (height / 2.f) * scaling);
+//
+//                aug4D = v4f(px, py, -1.f, 0.f);
+//                dir = aug4D * inverseView;
+//                Ray ray = Ray(eye, dir);
+//
+//                pixelColor = integrator->render(ray, sampler);
+//                integrator->rgb->data[i] = pixelColor;
+//                i++;
+
+//--------------------------------END OF PART 1.1 --------------------------------------
+
+
+//--------------------------------------BONUS-------------------------------------------
+
+                v3f sumColor = v3f(0.f,0.f,0.f);
+                for (j=0; j<16; j++) {
+                    float px = ((x - width / 2.f + sampler.next()) / (width / 2.f) * scaling * aspectRatio);
+                    float py = -((y - height / 2.f + sampler.next()) / (height / 2.f) * scaling);
+                    v4f aug4D = v4f(px, py, -1.f, 0.f);
+                    v4f dir = aug4D * inverseView;
+                    dir = glm::normalize(dir);
+                    Ray ray = Ray(eye, dir);
+
+                    pixelColor = integrator->render(ray,sampler);
+                    sumColor = sumColor + pixelColor;
+                }
+                integrator->rgb->data[i] = sumColor;
+                i++;
+//------------------------------------END OF BONUS--------------------------------------
+            }
+        }
+        //scale the pixelColor down by 1/16 to obtain average
+        integrator->rgb->scale(1.0f/16.0f);
     }
 }
 

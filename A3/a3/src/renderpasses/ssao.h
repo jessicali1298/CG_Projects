@@ -157,7 +157,8 @@ struct SSAOPass : RenderPass {
         /**
          * 1) Bind the GBuffer.
          */
-	    // TODO: Implement this
+        // TODO: Implement this
+        glBindFramebuffer(gbuffer,0);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -176,13 +177,48 @@ struct SSAOPass : RenderPass {
          * 5) Unbind the vertex array.
          */
 	    // TODO: Implement this
-        
+	    //1) Use the shader for the geometry pass
+        glUseProgram(geometryShader);
+
+        //2) Pass the necessary uniforms
+
+        //Pass the "texturePosition"
+        glUniform1i(glGetUniformLocation(geometryShader,"geometryShader_uniform"), 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D,texturePosition);
+
+        //Pass the "textureNormal"
+        glUniform1i(glGetUniformLocation(geometryShader, "geometryShader_uniform"), 1);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, textureNormal);
+
+
+        /*For all objects: bind the vertex array object for the geometry,
+         *draw the objects, and unbind its vertex array
+         */
+
+        for (auto& object : objects) {
+
+            //3) Bind the vertex array of current object
+            glBindVertexArray(object.vao);
+
+            //4) Draw its triangles
+            glDrawArrays(GL_TRIANGLES, 0, object.nVerts);
+
+            //5) Unbind the vertex array
+            glBindVertexArray(0);
+        }
+
+
+
+
         // II. SSAO pass
         // =======================================================================================
         /**
          * 1) Bind the screen buffer (postprocess_fboScreen).
          */
 	    // TODO: Implement this
+	    glUseProgram(postprocess_fboScreen);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -198,7 +234,39 @@ struct SSAOPass : RenderPass {
          * 7) Unbind the textures.
          */
 	    // TODO: Implement this
-        
+
+	    //1) Use the shader for the SSAO pass
+	    glUseProgram(shaderSSAO);
+
+	    //2) Pass the necessary uniforms
+	    //3) Bind the textures for position and normal from the GBuffer
+
+        //Pass the "texturePosition"
+        glUniform1i(glGetUniformLocation(geometryShader,"geometryShader_uniform"), 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D,texturePosition);
+
+        //Pass the "textureNormal"
+        glUniform1i(glGetUniformLocation(geometryShader, "geometryShader_uniform"), 1);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, textureNormal);
+
+        //4) Bind vertex array of the quad representing the screen texture
+        glBindVertexArray(quadVAO);
+
+        //5) Draw the quad
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        //6) Unbind the vertex array
+        glBindVertexArray(0);
+
+        //7) Unbind the textures
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
         RenderPass::render();
     }
 
