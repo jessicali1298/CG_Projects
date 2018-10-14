@@ -118,4 +118,8 @@ void main()
          and the shading point's depth value ( use depthRange() ).
     */
 	// TODO: Implement this
+
+    color= texture(texturePosition,texCoords).xyz;
+
+
 }

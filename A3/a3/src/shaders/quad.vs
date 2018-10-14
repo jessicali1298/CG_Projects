@@ -6,12 +6,12 @@
 */
 #version 330 core
 
-#This input position is in world-space
+//This input position is in world-space
 layout(location = 0) in vec2 position;
 layout(location = 1) in vec2 uv;
 
 out vec2 texCoords;
-out vec2 gl_Position;
+
 
 void main() {
     texCoords = uv;

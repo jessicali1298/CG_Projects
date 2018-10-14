@@ -158,7 +158,7 @@ struct SSAOPass : RenderPass {
          * 1) Bind the GBuffer.
          */
         // TODO: Implement this
-        glBindFramebuffer(gbuffer,0);
+        glBindFramebuffer(GL_FRAMEBUFFER,gbuffer);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -180,25 +180,20 @@ struct SSAOPass : RenderPass {
 	    //1) Use the shader for the geometry pass
         glUseProgram(geometryShader);
 
+
         //2) Pass the necessary uniforms
+        GLuint modelMatUniform = GLuint(glGetUniformLocation(geometryShader, "model"));
+        GLuint viewMatUniform = GLuint(glGetUniformLocation(geometryShader, "view"));
+        GLuint projectionMatUniform = GLuint(glGetUniformLocation(geometryShader, "projection"));
 
-        //Pass the "texturePosition"
-        glUniform1i(glGetUniformLocation(geometryShader,"geometryShader_uniform"), 0);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D,texturePosition);
-
-        //Pass the "textureNormal"
-        glUniform1i(glGetUniformLocation(geometryShader, "geometryShader_uniform"), 1);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, textureNormal);
-
+        glUniformMatrix4fv(modelMatUniform, 1, GL_FALSE, &(modelMat[0][0]));
+        glUniformMatrix4fv(viewMatUniform, 1, GL_FALSE, &(view[0][0]));
+        glUniformMatrix4fv(projectionMatUniform, 1, GL_FALSE, &(projection[0][0]));
 
         /*For all objects: bind the vertex array object for the geometry,
          *draw the objects, and unbind its vertex array
          */
-
         for (auto& object : objects) {
-
             //3) Bind the vertex array of current object
             glBindVertexArray(object.vao);
 
@@ -218,7 +213,7 @@ struct SSAOPass : RenderPass {
          * 1) Bind the screen buffer (postprocess_fboScreen).
          */
 	    // TODO: Implement this
-	    glUseProgram(postprocess_fboScreen);
+        glBindFramebuffer(GL_FRAMEBUFFER,postprocess_fboScreen);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -239,15 +234,18 @@ struct SSAOPass : RenderPass {
 	    glUseProgram(shaderSSAO);
 
 	    //2) Pass the necessary uniforms
+        projectionMatUniform = GLuint(glGetUniformLocation(shaderSSAO, "projection"));
+        glUniformMatrix4fv(projectionMatUniform, 1, GL_FALSE, &(projection[0][0]));
+
 	    //3) Bind the textures for position and normal from the GBuffer
 
         //Pass the "texturePosition"
-        glUniform1i(glGetUniformLocation(geometryShader,"geometryShader_uniform"), 0);
+        glUniform1i(glGetUniformLocation(geometryShader,"texturePosition"), 0);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D,texturePosition);
 
         //Pass the "textureNormal"
-        glUniform1i(glGetUniformLocation(geometryShader, "geometryShader_uniform"), 1);
+        glUniform1i(glGetUniformLocation(geometryShader, "textureNormal"), 1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, textureNormal);
 
