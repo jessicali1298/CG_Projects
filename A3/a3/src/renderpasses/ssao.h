@@ -240,12 +240,12 @@ struct SSAOPass : RenderPass {
 	    //3) Bind the textures for position and normal from the GBuffer
 
         //Pass the "texturePosition"
-        glUniform1i(glGetUniformLocation(geometryShader,"texturePosition"), 0);
+        glUniform1i(glGetUniformLocation(shaderSSAO,"texturePosition"), 0);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D,texturePosition);
 
         //Pass the "textureNormal"
-        glUniform1i(glGetUniformLocation(geometryShader, "textureNormal"), 1);
+        glUniform1i(glGetUniformLocation(shaderSSAO, "textureNormal"), 1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, textureNormal);
 
@@ -264,6 +264,7 @@ struct SSAOPass : RenderPass {
 
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, 0);
+
 
         RenderPass::render();
     }

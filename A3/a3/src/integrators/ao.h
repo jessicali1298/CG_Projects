@@ -42,21 +42,21 @@ struct AOIntegrator : Integrator {
         float cosThetai;
 
         //spherical sampling
-//        if (scene.bvh->intersect(ray, info)) {
-//            //Transforming the direction from local coord. to world-space
-//            sampleDir = Warp::squareToUniformSphere(sample);
-//            sampleDir_world = glm::normalize(info.frameNs.toWorld(sampleDir));
-//            cosThetai = Frame::cosTheta(sampleDir);
-//
-//            if (cosThetai >= 0.f) {
-//                Li = v3f(1.f / M_PI * cosThetai/ Warp::squareToUniformSpherePdf());
-//            }
-//        }
-//        //shadowRay is now in world-space
-//        Ray shadowRay = Ray(info.p,sampleDir_world, Epsilon, scene.aabb.getBSphere().radius/2);
-//        if (scene.bvh->intersect(shadowRay, info)) {
-//            Li = v3f(0.f);
-//        }
+        if (scene.bvh->intersect(ray, info)) {
+            //Transforming the direction from local coord. to world-space
+            sampleDir = Warp::squareToUniformSphere(sample);
+            sampleDir_world = glm::normalize(info.frameNs.toWorld(sampleDir));
+            cosThetai = Frame::cosTheta(sampleDir);
+
+            if (cosThetai >= 0.f) {
+                Li = v3f(1.f / M_PI * cosThetai/ Warp::squareToUniformSpherePdf());
+            }
+        }
+        //shadowRay is now in world-space
+        Ray shadowRay = Ray(info.p,sampleDir_world, Epsilon, scene.aabb.getBSphere().radius/2);
+        if (scene.bvh->intersect(shadowRay, info)) {
+            Li = v3f(0.f);
+        }
 
 
         //Hemispherical sampling
@@ -76,23 +76,23 @@ struct AOIntegrator : Integrator {
 //            Li = v3f(0.f);
 //        }
 
-
-        //Cosine Hemisphere
-        if (scene.bvh->intersect(ray, info)) {
-            //Transforming the direction from local coord. to world-space
-            sampleDir = Warp::squareToCosineHemisphere(sample);
-            sampleDir_world = glm::normalize(info.frameNs.toWorld(sampleDir));
-            cosThetai = Frame::cosTheta(sampleDir);
-
-            if (cosThetai >= 0.f) {
-                Li = v3f(1.f / M_PI * cosThetai/ Warp::squareToCosineHemispherePdf(sampleDir));
-            }
-        }
-        //shadowRay is now in world-space
-        Ray shadowRay = Ray(info.p,sampleDir_world, Epsilon, scene.aabb.getBSphere().radius/2);
-        if (scene.bvh->intersect(shadowRay, info)) {
-            Li = v3f(0.f);
-        }
+//
+//        //Cosine Hemisphere
+//        if (scene.bvh->intersect(ray, info)) {
+//            //Transforming the direction from local coord. to world-space
+//            sampleDir = Warp::squareToCosineHemisphere(sample);
+//            sampleDir_world = glm::normalize(info.frameNs.toWorld(sampleDir));
+//            cosThetai = Frame::cosTheta(sampleDir);
+//
+//            if (cosThetai >= 0.f) {
+//                Li = v3f(1.f / M_PI * cosThetai/ Warp::squareToCosineHemispherePdf(sampleDir));
+//            }
+//        }
+//        //shadowRay is now in world-space
+//        Ray shadowRay = Ray(info.p,sampleDir_world, Epsilon, scene.aabb.getBSphere().radius/2);
+//        if (scene.bvh->intersect(shadowRay, info)) {
+//            Li = v3f(0.f);
+//        }
 
 
 

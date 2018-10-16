@@ -61,7 +61,7 @@ struct ROIntegrator : Integrator {
             }
         }
         //shadowRay is now in world-space
-        Ray shadowRay = Ray(info.p,sampleDir_world,Epsilon);
+        Ray shadowRay = Ray(info.p,sampleDir_world,Epsilon,scene.aabb.getBSphere().radius-Epsilon);
         if (scene.bvh->intersect(shadowRay, info)) {
             Li = v3f(0.f);
         }

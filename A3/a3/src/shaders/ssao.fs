@@ -6,7 +6,6 @@
 */
 #version 330 core
 
-
 // UNIFORMS
 // ------------------------------------------------------------------
 uniform sampler2D texturePosition;
@@ -22,9 +21,8 @@ out vec3 color;
 // CONSTANTS
 // ------------------------------------------------------------------
 const int N_SAMPLES = 32;
-vec3 samples[N_SAMPLES];
-const float RADIUS = 0.8;
-const float BIAS = 0.01;
+float RADIUS = 0.14;
+float BIAS = 0.0;
 
 const float PI = 3.1415926535897932384626433832795;
 const float INV_PI = 1.0 / PI;
@@ -66,9 +64,12 @@ void setRNGSeed()
 
 vec3 squareToUniformHemisphere()
 {
-    // Generate a random direction in the hemisphere aligned to z+
-    vec3 sample = vec3(rand()*2.0 - 1.0, rand()*2.0 - 1.0, rand());
-    return normalize(sample) * rand();
+    // generate a random direction in the hemisphere aligned to z+
+    float z = rand();
+    float r = sqrt(max(0.0, 1.0 - z*z));
+    float phi = 2.0 * PI * rand();
+    vec3 v = vec3(r * cos(phi), r * sin(phi), z);
+    return v;
 }
 
 float squareToUniformHemispherePdf()
@@ -82,44 +83,69 @@ vec3 getTangent(vec3 normal)
     return normalize(rvec - normal * dot(rvec,normal)); // rotate
 }
 
-float depthRange(vec3 origin, float depthAtSample)
-{
-    return clamp(RADIUS / abs(origin.z - depthAtSample), 0.0, 1.0);
-}
-
 // MAIN
 // ------------------------------------------------------------------
 void main()
 {
     setRNGSeed();
+    
+        /**
+        * 1) Get the position and normal of the shading point (screen space) from the GBuffer.
+        */
+        //In Screen-Space
+        vec3 x = texture(texturePosition,texCoords).xyz;
+        vec3 texNormal = texture(textureNormal, texCoords).xyz;
 
-    /**
-    * 1) Get the position and normal of the shading point (screen space) from the GBuffer.
-    */
-	// TODO: Implement this
+        /**
+        * 1) Build the shading normal's frame (TBN).
+             ( use getTangent() )
+        */
+        vec3 shadingTangent = getTangent(texNormal);
+        vec3 shadingBinorm = cross(shadingTangent,texNormal);
 
-    /**
-    * 1) Build the shading normal's frame (TBN).
-         ( use getTangent() )
-    */
-	// TODO: Implement this
+        /**
+        For each sample:
+        * 1) Get a sample direction (view space).
+        * 2) Align the sample hemisphere to the shading normal.
+        * 3) Place the sample at the shading point (use the RADIUS constant).
+        * 4) Get the depth value at the sample's position using the depth buffer.
+        *    - Project the sample to screen space ie. pixels (NDC).
+             - after projection, divide the matrix by its homog coeff w component
+        *    - Transform the sample in NDC coordinates [-1,1] to texture coordinates [0,1].
+        * 5) Check for occlusion using the sample's depth value and the depth value at the sample's position.
+             (use some epsilon via the BIAS constant)
+        */
+        color = vec3(0.f,0.f,0.f);
+        for (int i = 0; i < N_SAMPLES; i++) {
+            //1) Get a sample direction (view space)
+            //This is in view space
+            vec3 sampleDir = squareToUniformHemisphere();
 
-    /**
-    For each sample:
-    * 1) Get a sample direction (view space).
-    * 2) Align the sample hemisphere to the shading normal.
-    * 3) Place the sample at the shading point (use the RADIUS constant).
-    * 4) Get the depth value at the sample's position using the depth buffer.
-    *    - Project the sample to screen space ie. pixels (NDC).
-    *    - Transform the sample in NDC coordinates [-1,1] to texture coordinates [0,1].
-    * 5) Check for occlusion using the sample's depth value and the depth value at the sample's position.
-         (use some epsilon via the BIAS constant)
-    * 6) Adjust occlusion by checking the range between the depth value at the sample's position
-         and the shading point's depth value ( use depthRange() ).
-    */
-	// TODO: Implement this
+            //2) Align the sample hemisphere to the shading normal
+            //now in screen-space
+            //return s * v.x + t * v.y + n * v.z;
+            vec3 sampleDirSphere = shadingBinorm*sampleDir.x + shadingTangent*sampleDir.y + texNormal*sampleDir.z;
 
-    color= texture(texturePosition,texCoords).xyz;
+            //3) Place the sample at the shading point (use the RADIUS constant)
+            //sampleY.w = homogenous coordinates
+            vec4 sampleY = vec4(x + RADIUS * sampleDirSphere,1.f);
 
+            //4) Get the depth value at the sample's position using the depth buffer
+            vec4 positionScreen = projection * sampleY;
+            positionScreen = positionScreen / positionScreen.w;
+            positionScreen = positionScreen/2.f + 0.5;
 
+            //projection on geometry
+            float depth = texture(texturePosition,positionScreen.xy).z;
+
+            //5) Check for occlusion using sample's depth value and the depth value at the sample's position
+            if (sampleY.z>depth) {
+                //has to be in local frame
+                color = color + vec3(INV_PI*sampleDir.z/squareToUniformHemispherePdf());
+            }
+            else {
+                color = color + vec3(0.f,0.f,0.f);
+            }
+        }
+        color = color/N_SAMPLES;
 }
