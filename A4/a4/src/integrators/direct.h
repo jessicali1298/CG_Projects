@@ -62,11 +62,9 @@ struct DirectIntegrator : Integrator {
 
     v3f renderCosineHemisphere(const Ray& ray, Sampler& sampler) const {
         v3f Lr(0.f);
-        v3f tempLr(0.f);
         // TODO: Implement this
         v3f v;
         SurfaceInteraction info,infoShadow;
-        //v2f sample = v2f(sampler.next(),sampler.next());
         v3f sampleDir, sampleDir_world;
         float cosThetai;
 
@@ -107,6 +105,44 @@ struct DirectIntegrator : Integrator {
     v3f renderBSDF(const Ray& ray, Sampler& sampler) const {
         v3f Lr(0.f);
         // TODO: Implement this
+        v3f v;
+        SurfaceInteraction info,infoShadow;
+        v3f sampleDir, sampleDir_world;
+        v3f BRDF;
+        float cosThetai;
+        float pdf;
+
+
+        //shooting emitterSamples from shading point based on the input number of emitterSamples
+        //The emitterSamples are distrubuted based on cosine-weighted hemispherical sampling
+        for (int i = 0; i < m_emitterSamples; i++) {
+            v2f sample = v2f(sampler.next(),sampler.next());
+
+            //Cosine Hemisphere
+            if (scene.bvh->intersect(ray,info)) {
+                //If the eye-ray doesn't hit the light
+                if (getEmission(info) != v3f(0.f)) {
+                    return getEmission(info);
+                }
+                //Transforming the direction from local coord. to world-space
+                BRDF = getBSDF(info)->sample(info,sample,&pdf);
+                sampleDir_world = glm::normalize(info.frameNs.toWorld(info.wi));
+                cosThetai = Frame::cosTheta(info.wi);
+
+                //shadowRay is now in world-space
+                Ray shadowRay = Ray(info.p, sampleDir_world, Epsilon);
+                if (scene.bvh->intersect(shadowRay,infoShadow)) {
+                    if(getEmission(infoShadow) != v3f(0.f)) {
+                        if (cosThetai >= 0.f) {
+                            Lr += getEmission(infoShadow) * BRDF * cosThetai/ pdf;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        Lr = Lr/m_emitterSamples;
         return Lr;
     }
 

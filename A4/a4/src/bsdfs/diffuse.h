@@ -48,12 +48,25 @@ struct DiffuseBSDF : BSDF {
     float pdf(const SurfaceInteraction& i) const override {
         float pdf = 0.f;
         // TODO: Implement this
+
+        pdf = i.wi.z/M_PI;
         return pdf;
     }
 
     v3f sample(SurfaceInteraction& i, const v2f& sample, float* pdf) const override {
         v3f val(0.f);
         // TODO: Implement this
+        //Cosine Hemisphere
+
+        v3f sampleDir, sampleDir_world;
+        float cosThetai;
+
+        i.wi = Warp::squareToCosineHemisphere(sample);
+        sampleDir_world = glm::normalize(i.frameNs.toWorld(i.wi));
+
+        *pdf = this->pdf(i);
+        val = this->eval(i);
+
         return val;
     }
 

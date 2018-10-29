@@ -82,12 +82,29 @@ struct PhongBSDF : BSDF {
     float pdf(const SurfaceInteraction& i) const override {
         float pdf = 0.f;
         // TODO: Implement this
+        float exp = exponent->eval(worldData, i);
+        pdf = (exp+2)/(2*M_PI)*glm::pow(i.wi.z,exp);
+
         return pdf;
     }
 
     v3f sample(SurfaceInteraction& i, const v2f& _sample, float* pdf) const override {
         v3f val(0.f);
         // TODO: Implement this
+        v3f v,viewReflect_world, viewReflect_phong;
+
+        v3f sampleDir, sampleDir_world;
+        float exp = exponent->eval(worldData, i);
+
+        viewReflect_world = glm::normalize(i.frameNs.toWorld(reflect(i.wo)));
+        Frame newFrame(viewReflect_world);
+
+        //Transforming the direction from local coord. to world-space
+        sampleDir = Warp::squareToPhongLobe(_sample, exp);
+
+        i.wi = Warp::squareToPhongLobe(_sample,exp);
+        *pdf = this->pdf(i);
+        val = this->eval(i);
         return val;
     }
 
