@@ -65,7 +65,7 @@ struct PhongBSDF : BSDF {
         //2. Evaluate the Phong BRDF using Equation (1).
         //3. Return this value multiplied by the cosine factor.
 
-        v3f specDirection = PhongBSDF::reflect(i.wi);
+        v3f specDirection = reflect(i.wi);
         v3f diffuseReflect = diffuseReflectance->eval(worldData, i);
         v3f specReflect = specularReflectance->eval(worldData, i);
         float exp = exponent->eval(worldData, i);
@@ -73,7 +73,8 @@ struct PhongBSDF : BSDF {
 
         if (Frame::cosTheta(i.wi) >= 0 && Frame::cosTheta(i.wo) >= 0 ) {
             v3f phongBRDF = (diffuseReflect/M_PI) + (specReflect*((exp+2)/(2*M_PI))*glm::pow(cosAlpha, exp));
-            val = scale*(phongBRDF*Frame::cosTheta(i.wi));
+            //val = scale*(phongBRDF*Frame::cosTheta(i.wi));
+            val = scale * phongBRDF;
 
         }
         return val;
@@ -83,7 +84,12 @@ struct PhongBSDF : BSDF {
         float pdf = 0.f;
         // TODO: Implement this
         float exp = exponent->eval(worldData, i);
-        pdf = (exp+2)/(2*M_PI)*glm::pow(i.wi.z,exp);
+
+        v3f viewReflect_world = glm::normalize(i.frameNs.toWorld(reflect(i.wo)));
+        Frame phongFrame(viewReflect_world);
+
+        v3f sample = phongFrame.toLocal(i.frameNs.toWorld(i.wi));
+        pdf = Warp::squareToPhongLobePdf(sample,exp);
 
         return pdf;
     }
@@ -91,7 +97,7 @@ struct PhongBSDF : BSDF {
     v3f sample(SurfaceInteraction& i, const v2f& _sample, float* pdf) const override {
         v3f val(0.f);
         // TODO: Implement this
-        v3f v,viewReflect_world, viewReflect_phong;
+        v3f v, viewReflect_world;
 
         v3f sampleDir, sampleDir_world;
         float exp = exponent->eval(worldData, i);
@@ -102,7 +108,10 @@ struct PhongBSDF : BSDF {
         //Transforming the direction from local coord. to world-space
         sampleDir = Warp::squareToPhongLobe(_sample, exp);
 
-        i.wi = Warp::squareToPhongLobe(_sample,exp);
+        v = Warp::squareToPhongLobe(_sample,exp);
+
+
+        i.wi = glm::normalize(i.frameNs.toLocal(newFrame.toWorld(v)));
         *pdf = this->pdf(i);
         val = this->eval(i);
         return val;

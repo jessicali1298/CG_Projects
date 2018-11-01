@@ -43,6 +43,17 @@ struct DirectIntegrator : Integrator {
                             v3f& wiW,
                             float& pdf) const {
         // TODO: Implement this
+        //sampling a position y on sphere
+        sample = Warp::squareToUniformSphere(sample);
+        //evaluate PDF at that point
+        pdf = 1/(4*M_PI*pow(emitterRadius,2.f));
+        //set emitter(y) position
+        pos = emitterCenter + emitterRadius * sample;
+        //set direction wi = x->y
+        wiW = glm::normalize(pos - pShading);
+        //set normal at y
+        ne = glm::normalize(emitterRadius * sample);
+
     }
 
     void sampleSphereBySolidAngle(const p2f& sample,
@@ -57,6 +68,58 @@ struct DirectIntegrator : Integrator {
     v3f renderArea(const Ray& ray, Sampler& sampler) const {
         v3f Lr(0.f);
         // TODO: Implement this
+        v3f v;
+        SurfaceInteraction info,infoShadow;
+        v3f sampleDir, sampleDir_world;
+        v3f BRDF;
+        float cosThetai;
+        float pdf;
+
+        v3f emCenter = scene.getShapeCenter(em.shapeID);
+        float emRadius = scene.getShapeRadius(em.shapeID);
+
+        //shooting emitterSamples from shading point based on the input number of emitterSamples
+        //The emitterSamples are distrubuted based on cosine-weighted hemispherical sampling
+        for (int i = 0; i < m_emitterSamples; i++) {
+            v2f sample = v2f(sampler.next(),sampler.next());
+
+            //Cosine Hemisphere
+            if (scene.bvh->intersect(ray,info)) {
+                //If the eye-ray doesn't hit the light
+                if (getEmission(info) != v3f(0.f)) {
+                    return getEmission(info);
+                }
+                //Transforming the direction from local coord. to world-space
+                BRDF = getBSDF(info)->sample(info,sample,&pdf); //set info.wi, calculate BRDF, and set PDF
+                sampleDir_world = glm::normalize(info.frameNs.toWorld(info.wi));
+                cosThetai = Frame::cosTheta(info.wi);
+
+                //shadowRay is now in world-space
+                Ray shadowRay = Ray(info.p, sampleDir_world, Epsilon);
+                if (scene.bvh->intersect(shadowRay,infoShadow)) {
+                    if(getEmission(infoShadow) != v3f(0.f)) {
+                        if (cosThetai >= 0.f) {
+                            Lr += getEmission(infoShadow) * BRDF * cosThetai/ pdf;
+                            //cout << pdf;
+//                            cout << ",";
+//                            cout << BRDF.y;
+//                            cout << ",";
+//                            cout << BRDF.z;
+                            //cout << "\n";
+                        }
+                    }
+                }
+
+            }
+        }
+
+        Lr = Lr/m_emitterSamples;
+        return Lr;
+
+
+
+
+
         return Lr;
     }
 
@@ -125,7 +188,7 @@ struct DirectIntegrator : Integrator {
                     return getEmission(info);
                 }
                 //Transforming the direction from local coord. to world-space
-                BRDF = getBSDF(info)->sample(info,sample,&pdf);
+                BRDF = getBSDF(info)->sample(info,sample,&pdf); //set info.wi, calculate BRDF, and set PDF
                 sampleDir_world = glm::normalize(info.frameNs.toWorld(info.wi));
                 cosThetai = Frame::cosTheta(info.wi);
 
@@ -135,6 +198,12 @@ struct DirectIntegrator : Integrator {
                     if(getEmission(infoShadow) != v3f(0.f)) {
                         if (cosThetai >= 0.f) {
                             Lr += getEmission(infoShadow) * BRDF * cosThetai/ pdf;
+                            //cout << pdf;
+//                            cout << ",";
+//                            cout << BRDF.y;
+//                            cout << ",";
+//                            cout << BRDF.z;
+                            //cout << "\n";
                         }
                     }
                 }

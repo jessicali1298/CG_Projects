@@ -15,9 +15,18 @@
     <list default="true" id="24f34df4-5a1b-4985-9007-348ec01bbdeb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/integrator.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/integrator.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/renderpass.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/src/core/renderpass.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/src/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/CMakeFiles/tinyrender.dir/src/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/tinyrender" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-debug/tinyrender" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/tinyrender" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/tinyrender" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_bsdf_diffuse_4.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_bsdf_diffuse_4.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_bsdf_diffuse_64.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_bsdf_diffuse_64.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_bsdf_phong_4.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_bsdf_phong_4.exr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_bsdf_phong_64.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_bsdf_phong_64.exr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/src/bsdfs/diffuse.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/bsdfs/diffuse.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/src/bsdfs/phong.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/bsdfs/phong.h" afterDir="false" />
@@ -72,27 +81,27 @@
     <session id="-1874868699">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.16" value="2" />
+          <entry key="project.open.time.16" value="4" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cpp" value="4" />
           <entry key="fs" value="7" />
-          <entry key="h" value="19" />
+          <entry key="h" value="20" />
           <entry key="hpp" value="1" />
           <entry key="vs" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="ObjectiveC" value="24" />
+          <entry key="ObjectiveC" value="25" />
           <entry key="PLAIN_TEXT" value="17" />
         </counts>
       </usages-collector>
@@ -115,20 +124,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/core/renderpass.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5712">
-              <caret line="408" column="33" selection-start-line="408" selection-start-column="33" selection-end-line="408" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/integrators/ro.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="371">
+              <caret line="61" column="41" lean-forward="true" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -148,8 +148,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/integrators/ao.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="41" column="24" lean-forward="true" selection-start-line="37" selection-start-column="8" selection-end-line="41" selection-end-column="24" />
+            <state relative-caret-position="574">
+              <caret line="41" column="24" selection-start-line="37" selection-start-column="8" selection-end-line="41" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -157,8 +157,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/core/math.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="156" column="21" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="21" />
+            <state relative-caret-position="201">
+              <caret line="207" column="13" selection-start-line="207" selection-start-column="13" selection-end-line="207" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -166,7 +166,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/core/renderer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
+            <state relative-caret-position="2212">
               <caret line="158" column="53" selection-start-line="158" selection-start-column="53" selection-end-line="158" selection-end-column="53" />
               <folding>
                 <element signature="e#187#209#0" expanded="true" />
@@ -178,7 +178,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shaders/ssao.fs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
+            <state relative-caret-position="2044">
               <caret line="146" column="13" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
             </state>
           </provider>
@@ -246,7 +246,7 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1024" />
+    <option name="width" value="510" />
     <option name="height" value="640" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -255,7 +255,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -302,6 +301,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -357,16 +357,18 @@
       <workItem from="1539712375246" duration="2432000" />
       <workItem from="1539805638908" duration="5729000" />
       <workItem from="1540746316585" duration="5216000" />
+      <workItem from="1540957993232" duration="726000" />
+      <workItem from="1540997756050" duration="2211000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68087000" />
+    <option name="totallyTimeSpent" value="71024000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1024" height="640" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17209776" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17820774" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -448,13 +450,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bsdfs/phong.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shaders/normal.vs">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -496,6 +491,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/integrators/ao.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="41" column="24" selection-start-line="37" selection-start-column="8" selection-end-line="41" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/renderer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2212">
+          <caret line="158" column="53" selection-start-line="158" selection-start-column="53" selection-end-line="158" selection-end-column="53" />
+          <folding>
+            <element signature="e#187#209#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shaders/ssao.fs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2044">
+          <caret line="146" column="13" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/renderpasses/ssao.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2212">
@@ -513,41 +532,24 @@
     <entry file="file://$PROJECT_DIR$/src/shaders/geometry.fs">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shaders/ssao.fs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="146" column="13" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/renderer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="158" column="53" selection-start-line="158" selection-start-column="53" selection-end-line="158" selection-end-column="53" />
-          <folding>
-            <element signature="e#187#209#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/core/math.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="156" column="21" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="21" />
+        <state relative-caret-position="201">
+          <caret line="207" column="13" selection-start-line="207" selection-start-column="13" selection-end-line="207" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/integrators/ao.h">
+    <entry file="file://$PROJECT_DIR$/src/bsdfs/phong.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="41" column="24" lean-forward="true" selection-start-line="37" selection-start-column="8" selection-end-line="41" selection-end-column="24" />
+        <state relative-caret-position="184">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/integrators/ro.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="371">
+          <caret line="61" column="41" lean-forward="true" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
         </state>
       </provider>
     </entry>

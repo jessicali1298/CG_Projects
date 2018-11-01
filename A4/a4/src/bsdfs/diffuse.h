@@ -49,7 +49,7 @@ struct DiffuseBSDF : BSDF {
         float pdf = 0.f;
         // TODO: Implement this
 
-        pdf = i.wi.z/M_PI;
+        pdf = Warp::squareToCosineHemispherePdf(i.wi);
         return pdf;
     }
 
@@ -62,7 +62,7 @@ struct DiffuseBSDF : BSDF {
         float cosThetai;
 
         i.wi = Warp::squareToCosineHemisphere(sample);
-        sampleDir_world = glm::normalize(i.frameNs.toWorld(i.wi));
+        //sampleDir_world = glm::normalize(i.frameNs.toWorld(i.wi));
 
         *pdf = this->pdf(i);
         val = this->eval(i);

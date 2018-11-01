@@ -207,8 +207,7 @@ inline v3f squareToPhongLobe(const p2f& sample, float exponent) {
 inline float squareToPhongLobePdf(const v3f& v, float exponent) {
     float pdf = 0.f;
     // TODO: Add previous assignment code (if needed)
-    float exp = 300.f;
-    pdf = (exp+2)/(2*M_PI)*glm::pow(v.z,exp);
+    pdf = (exponent+2)/(2*M_PI)*glm::pow(v.z,exponent);
     return pdf;
 }
 
