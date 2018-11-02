@@ -218,7 +218,7 @@ inline v3f squareToUniformCone(const p2f& sample, float cosThetaMax) {
     float cosTheta = (1.f - sample.x) + sample.x * cosThetaMax;
     float sinTheta = std::sqrt(1.f - cosTheta * cosTheta);
     float phi = sample.y * 2 * M_PI;
-    v = v3f((cos(phi) * sinTheta, sin(phi) * sinTheta, cosTheta));
+    v = v3f(glm::cos(phi) * sinTheta, glm::sin(phi) * sinTheta, cosTheta);
 
     return v;
 }

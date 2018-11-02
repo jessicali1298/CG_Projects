@@ -18,9 +18,7 @@
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/tinyrender" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/tinyrender" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_area.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_area.exr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_sa.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_sa.exr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A4/a4/src/bsdfs/phong.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/bsdfs/phong.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/src/core/math.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/core/math.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/src/integrators/direct.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/integrators/direct.h" afterDir="false" />
     </list>
@@ -119,7 +117,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/integrators/ro.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
+            <state relative-caret-position="398">
               <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
             </state>
           </provider>
@@ -484,7 +482,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/integrators/ro.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
+        <state relative-caret-position="398">
           <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
         </state>
       </provider>

@@ -67,13 +67,12 @@ struct DirectIntegrator : Integrator {
         float cosThetaMax = glm::sqrt(1.f-glm::pow((emitterRadius/glm::length(pShading-emitterCenter)),2.f));
         //float cosThetaMax = Frame::cosTheta((emitterCenter + emitterRadius)-pShading);
 
-        v3f coneNormal = emitterCenter - pShading;
+        v3f coneNormal = glm::normalize(emitterCenter - pShading);
         Frame coneFrame(coneNormal); //create local cone frame
         v3f sampleDir = Warp::squareToUniformCone(sample, cosThetaMax);
 
         wiW = glm::normalize(coneFrame.toWorld(sampleDir));
         pdf = Warp::squareToUniformConePdf(cosThetaMax);
-
     }
 
     v3f renderArea(const Ray& ray, Sampler& sampler) const {
@@ -247,14 +246,14 @@ struct DirectIntegrator : Integrator {
             info.wi = glm::normalize(info.frameNs.toLocal(wiW));
 
             cosThetai = Frame::cosTheta(info.wi);
-            cosTheta0 = fmax(0.f,glm::dot(-wiW,ne)/glm::length(-wiW)/glm::length(ne));
-            jacobDet = cosTheta0/glm::pow(glm::length(info.p-pos),2.f);
+            //cosTheta0 = fmax(0.f,glm::dot(-wiW,ne)/glm::length(-wiW)/glm::length(ne));
+            //jacobDet = cosTheta0/glm::pow(glm::length(info.p-pos),2.f);
 
             Ray shadowRay = Ray(info.p, wiW, Epsilon);
             if (scene.bvh->intersect(shadowRay,infoShadow)) {
                 if(getEmission(infoShadow) != v3f(0.f)) {
                     if (cosThetai >= 0.f) {
-                        Lr += getEmission(infoShadow)*getBSDF(info)->eval(info)*cosThetai*jacobDet/pdf/emPdf;
+                        Lr += getEmission(infoShadow)*getBSDF(info)->eval(info)*cosThetai/pdf/emPdf;
                     }
                 }
             }
