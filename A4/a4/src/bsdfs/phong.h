@@ -97,21 +97,18 @@ struct PhongBSDF : BSDF {
     v3f sample(SurfaceInteraction& i, const v2f& _sample, float* pdf) const override {
         v3f val(0.f);
         // TODO: Implement this
-        v3f v, viewReflect_world;
-
+        v3f viewReflect_world;
         v3f sampleDir, sampleDir_world;
         float exp = exponent->eval(worldData, i);
 
         viewReflect_world = glm::normalize(i.frameNs.toWorld(reflect(i.wo)));
         Frame newFrame(viewReflect_world);
 
-        //Transforming the direction from local coord. to world-space
+
         sampleDir = Warp::squareToPhongLobe(_sample, exp);
 
-        v = Warp::squareToPhongLobe(_sample,exp);
-
-
-        i.wi = glm::normalize(i.frameNs.toLocal(newFrame.toWorld(v)));
+        //i.wi now in local space of the shading point
+        i.wi = glm::normalize(i.frameNs.toLocal(newFrame.toWorld(sampleDir)));
         *pdf = this->pdf(i);
         val = this->eval(i);
         return val;

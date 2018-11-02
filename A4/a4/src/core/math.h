@@ -215,12 +215,18 @@ inline v3f squareToUniformCone(const p2f& sample, float cosThetaMax) {
     v3f v(0.f);
     //Page 381 in textbook
     // TODO: Implement this
+    float cosTheta = (1.f - sample.x) + sample.x * cosThetaMax;
+    float sinTheta = std::sqrt(1.f - cosTheta * cosTheta);
+    float phi = sample.y * 2 * M_PI;
+    v = v3f((cos(phi) * sinTheta, sin(phi) * sinTheta, cosTheta));
+
     return v;
 }
 
 inline float squareToUniformConePdf(float cosThetaMax) {
     float pdf = 0.f;
     // TODO: Implement this
+    pdf = 1.f / (2.f * M_PI * (1.f - cosThetaMax));
     return pdf;
 }
 
