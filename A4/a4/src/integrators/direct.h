@@ -175,13 +175,11 @@ struct DirectIntegrator : Integrator {
         float cosThetai;
         float pdf;
 
-
         //shooting emitterSamples from shading point based on the input number of emitterSamples
         //The emitterSamples are distrubuted based on cosine-weighted hemispherical sampling
         for (int i = 0; i < m_emitterSamples; i++) {
             v2f sample = v2f(sampler.next(),sampler.next());
 
-            //Cosine Hemisphere
             if (scene.bvh->intersect(ray,info)) {
                 //If the eye-ray doesn't hit the light
                 if (getEmission(info) != v3f(0.f)) {
@@ -260,18 +258,103 @@ struct DirectIntegrator : Integrator {
         }
         Lr = Lr/m_emitterSamples;
         return Lr;
-
-
-
-
-
-        return Lr;
     }
 
     v3f renderMIS(const Ray& ray, Sampler& sampler) const {
         v3f Lr(0.f);
+        v3f LrSA(0.f);
+        v3f LrBRDF(0.f);
         // TODO: Implement this
-        return Lr;
+        SurfaceInteraction info,infoShadow;
+        v3f sampleDir, sampleDir_world;
+        v3f BRDF,pos,ne,wiW;
+        float cosThetai,cosTheta0,jacobDet;
+        float pdfSA,pdfBRDF;
+
+        //emitter sampling
+        for (int i = 0; i < m_emitterSamples; i++) {
+            v2f sample = v2f(sampler.next(),sampler.next());
+            if(scene.bvh->intersect(ray,info)) {
+                if (getEmission(info)!=v3f(0.f)) {
+                    return getEmission(info);
+                }
+            }
+            //select an emitter to sample
+            float emPdf;
+            size_t id = selectEmitter(sampler.next(), emPdf);
+            const Emitter& em = getEmitterByID(id);
+
+            //define emitter center and radius
+            v3f emCenter = scene.getShapeCenter(em.shapeID);
+            float emRadius = scene.getShapeRadius(em.shapeID);
+
+            sampleSphereBySolidAngle(sample,info.p,emCenter,emRadius,wiW,pdfSA); //sets wiW, pdf
+
+            info.wi = glm::normalize(info.frameNs.toLocal(wiW)); //set info.wi (shadingPoint's coords)
+            cosThetai = Frame::cosTheta(info.wi);
+
+            Ray shadowRay = Ray(info.p, wiW, Epsilon);
+            if (scene.bvh->intersect(shadowRay,infoShadow)) {
+                if(getEmission(infoShadow) != v3f(0.f)) {
+                    if (cosThetai >= 0.f) {
+                        pdfBRDF = getBSDF(info)->pdf(info);
+                        float Wsa = balanceHeuristic(m_emitterSamples,pdfSA,m_bsdfSamples,pdfBRDF);
+                        LrSA += Wsa*getEmission(infoShadow)*getBSDF(info)->eval(info)*cosThetai/pdfSA/emPdf;
+                    }
+                }
+            }
+        }
+
+        //BSDF sampling
+        for (int j = 0; j < m_bsdfSamples; j++) {
+            v2f sampleBSDF = v2f(sampler.next(),sampler.next());
+
+            //Cosine Hemisphere
+            if (scene.bvh->intersect(ray,info)) {
+                //If the eye-ray doesn't hit the light
+                if (getEmission(info) != v3f(0.f)) {
+                    return getEmission(info);
+                }
+                //Transforming the direction from local coord. to world-space
+                BRDF = getBSDF(info)->sample(info,sampleBSDF,&pdfBRDF); //set info.wi, calculate BRDF, and set PDF
+                sampleDir_world = glm::normalize(info.frameNs.toWorld(info.wi));
+                cosThetai = Frame::cosTheta(info.wi);
+
+                //shadowRay is now in world-space
+                Ray shadowRay = Ray(info.p, sampleDir_world, Epsilon);
+                if (scene.bvh->intersect(shadowRay,infoShadow)) {
+                    if(getEmission(infoShadow) != v3f(0.f)) {
+                        if (cosThetai >= 0.f) {
+
+                            //obtain the light that the shadowRay intersects with
+                            const Emitter& em = getEmitterByID(getEmitterIDByShapeID(infoShadow.shapeID));
+                            float emPDF = Integrator::getEmitterPdf(em);
+
+                            //define emitter center and radius
+                            v3f emCenter = scene.getShapeCenter(em.shapeID);
+                            float emRadius = scene.getShapeRadius(em.shapeID);
+
+                            //calculate pdfSA for Weighted function calculation
+                            float cosThetaMax = glm::sqrt(1.f-glm::pow((emRadius/glm::length(info.p-emCenter)),2.f));
+                            pdfSA = Warp::squareToUniformConePdf(cosThetaMax);
+
+                            //Calculate weighted function
+                            float WBr = balanceHeuristic(m_bsdfSamples,pdfBRDF,m_emitterSamples,pdfSA*emPDF);
+                            LrBRDF += WBr*getEmission(infoShadow) * BRDF * cosThetai/ pdfBRDF;
+                        }
+                    }
+                }
+            }
+        }
+        if (m_emitterSamples == 0) {
+            return LrBRDF/m_bsdfSamples;
+        }
+        if (m_bsdfSamples == 0) {
+            return LrSA/m_emitterSamples;
+        }
+        LrSA = LrSA/m_emitterSamples;
+        LrBRDF = LrBRDF/m_bsdfSamples;
+        return LrSA + LrBRDF;
     }
 
     v3f render(const Ray& ray, Sampler& sampler) const override {

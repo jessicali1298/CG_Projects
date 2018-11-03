@@ -115,9 +115,6 @@ void Renderer::render() {
         float height = scene.config.height;
         v3f pixelColor;
 
-
-
-
         int i = 0;
         int j;
         // 1) calculate camera perspectives
@@ -133,6 +130,18 @@ void Renderer::render() {
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
 
+                if (scene.config.spp == 1) {
+                    float px = (x - width / 2.f + 0.5f) / (width / 2.f) * scaling * aspectRatio;
+                    float py = -((y - height / 2.f + 0.5f) / (height / 2.f) * scaling);
+
+                    v4f aug4D = v4f(px, py, -1.f, 0.f);
+                    v4f dir = aug4D * inverseView;
+                    Ray ray = Ray(eye, dir);
+
+                    pixelColor = integrator->render(ray, sampler);
+                    integrator->rgb->data[i] = pixelColor;
+                    i++;
+                }
 //------------------------------------PART 1.1------------------------------------------
 //                px = (x - width / 2.f + 0.5f) / (width / 2.f) * scaling * aspectRatio;
 //                py = -((y - height / 2.f + 0.5f) / (height / 2.f) * scaling);
@@ -150,20 +159,23 @@ void Renderer::render() {
 
 //--------------------------------------BONUS-------------------------------------------
 
-                v3f sumColor = v3f(0.f,0.f,0.f);
-                for (j=0; j<scene.config.spp; j++) {
-                    float px = ((x - width / 2.f + sampler.next()) / (width / 2.f) * scaling * aspectRatio);
-                    float py = -((y - height / 2.f + sampler.next()) / (height / 2.f) * scaling);
-                    v4f aug4D = v4f(px, py, -1.f, 0.f);
-                    v4f dir = aug4D * inverseView;
-                    dir = glm::normalize(dir);
-                    Ray ray = Ray(eye, dir);
+                else {
+                    v3f sumColor = v3f(0.f,0.f,0.f);
+                    for (j=0; j<scene.config.spp; j++) {
+                        float px = ((x - width / 2.f + sampler.next()) / (width / 2.f) * scaling * aspectRatio);
+                        float py = -((y - height / 2.f + sampler.next()) / (height / 2.f) * scaling);
+                        v4f aug4D = v4f(px, py, -1.f, 0.f);
+                        v4f dir = aug4D * inverseView;
+                        dir = glm::normalize(dir);
+                        Ray ray = Ray(eye, dir);
 
-                    pixelColor = integrator->render(ray,sampler);
-                    sumColor = sumColor + pixelColor;
+                        pixelColor = integrator->render(ray,sampler);
+                        sumColor = sumColor + pixelColor;
+                    }
+                    integrator->rgb->data[i] = sumColor;
+                    i++;
                 }
-                integrator->rgb->data[i] = sumColor;
-                i++;
+
 //------------------------------------END OF BONUS--------------------------------------
             }
         }

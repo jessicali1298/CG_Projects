@@ -15,11 +15,12 @@
     <list default="true" id="24f34df4-5a1b-4985-9007-348ec01bbdeb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/tinyrender" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/tinyrender" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_sa.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/sphere/tinyrender/sphere_sa.exr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A4/a4/src/core/math.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/core/math.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_bsdf.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_bsdf.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_emitter.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_emitter.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_mis.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_mis.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/src/core/renderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/core/renderer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/src/integrators/direct.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/integrators/direct.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
