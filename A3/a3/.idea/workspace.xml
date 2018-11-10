@@ -17,10 +17,9 @@
       <change beforePath="$PROJECT_DIR$/../../A4/a4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/tinyrender" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/cmake-build-release/tinyrender" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_bsdf.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_bsdf.exr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_emitter.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_emitter.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/teapot/tinyrender/teapot_area.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/teapot/tinyrender/teapot_area.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_final/tinyrender/veach_mis.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_final/tinyrender/veach_mis.exr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_mis.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/data/a4/veach_test/tinyrender/veach_mis.exr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A4/a4/src/core/renderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/core/renderer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A4/a4/src/integrators/direct.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A4/a4/src/integrators/direct.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -71,14 +70,16 @@
     <session id="-1874868699">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="4" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="10" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -351,17 +352,18 @@
       <workItem from="1540957993232" duration="726000" />
       <workItem from="1540997756050" duration="2211000" />
       <workItem from="1541089213149" duration="857000" />
+      <workItem from="1541372765453" duration="336000" />
+      <workItem from="1541377464237" duration="318000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71881000" />
+    <option name="totallyTimeSpent" value="72535000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1024" height="640" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18126273" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18737271" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
