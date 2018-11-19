@@ -207,13 +207,17 @@ inline v3f squareToPhongLobe(const p2f& sample, float exponent) {
 inline float squareToPhongLobePdf(const v3f& v, float exponent) {
     float pdf = 0.f;
     // TODO: Add previous assignment code (if needed)
+    if (v.z <= 0.f){
+        return 0.f;
+    }
     pdf = (exponent+2)/(2*M_PI)*glm::pow(v.z,exponent);
     return pdf;
 }
 
 inline v2f squareToUniformTriangle(const p2f& sample) {
     v2f v(0.f);
-    // TODO: Add previous assignment code (if needed)
+    float u = std::sqrt(1.f - sample.x);
+    v = {1 - u, u * sample.y};
     return v;
 }
 

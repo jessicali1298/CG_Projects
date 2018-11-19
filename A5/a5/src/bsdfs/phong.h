@@ -90,6 +90,9 @@ struct PhongBSDF : BSDF {
         v3f sample = phongFrame.toLocal(i.frameNs.toWorld(i.wi));
         pdf = Warp::squareToPhongLobePdf(sample,exp);
 
+//        if (pdf <= 0.f) {
+//            return 0.f;
+//        }
         return pdf;
     }
 
@@ -110,6 +113,9 @@ struct PhongBSDF : BSDF {
         i.wi = glm::normalize(i.frameNs.toLocal(newFrame.toWorld(sampleDir)));
         *pdf = this->pdf(i);
         val = this->eval(i);
+        if (this->pdf(i) <= 0.f) {
+            return v3f(0.f);
+        }
         return val;
     }
 

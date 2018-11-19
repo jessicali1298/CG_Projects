@@ -48,8 +48,10 @@ struct DiffuseBSDF : BSDF {
     float pdf(const SurfaceInteraction& i) const override {
         float pdf = 0.f;
         // TODO: Implement this
-
         pdf = Warp::squareToCosineHemispherePdf(i.wi);
+//        if (pdf <= 0.f) {
+//            return 0.f;
+//        }
         return pdf;
     }
 
@@ -67,6 +69,9 @@ struct DiffuseBSDF : BSDF {
         *pdf = this->pdf(i);
         val = this->eval(i);
 
+        if (this->pdf(i) <= 0.f) {
+            return v3f(0.f);
+        }
         return val;
     }
 

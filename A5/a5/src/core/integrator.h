@@ -66,6 +66,7 @@ struct Integrator {
      */
 
     void sampleEmitterDirection(Sampler& sampler, const Emitter& emitter, const v3f& n, v3f& d, float& pdf) const;
+
 };
 
 TR_NAMESPACE_END

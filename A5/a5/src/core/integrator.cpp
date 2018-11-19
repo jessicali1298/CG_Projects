@@ -71,6 +71,29 @@ void Integrator::sampleEmitterDirection(Sampler& sampler,
 
 void Integrator::sampleEmitterPosition(Sampler& sampler, const Emitter& emitter, v3f& n, v3f& pos, float& pdf) const {
     // TODO: Add previous assignment code (if needed)
+    const tinyobj::shape_t& shape = scene.worldData.shapes[emitter.shapeID];
+    const size_t primID = (size_t) emitter.faceAreaDistribution.sample(sampler.next());
+    const v2f uv = Warp::squareToUniformTriangle(sampler.next2D());
+
+    const tinyobj::index_t& idx0 = shape.mesh.indices[3 * primID + 0];
+    const tinyobj::index_t& idx1 = shape.mesh.indices[3 * primID + 1];
+    const tinyobj::index_t& idx2 = shape.mesh.indices[3 * primID + 2];
+
+    auto& vx = scene.worldData.attrib.vertices;
+    const v3f v0{vx[3 * idx0.vertex_index + 0], vx[3 * idx0.vertex_index + 1], vx[3 * idx0.vertex_index + 2]};
+    const v3f v1{vx[3 * idx1.vertex_index + 0], vx[3 * idx1.vertex_index + 1], vx[3 * idx1.vertex_index + 2]};
+    const v3f v2{vx[3 * idx2.vertex_index + 0], vx[3 * idx2.vertex_index + 1], vx[3 * idx2.vertex_index + 2]};
+
+    pos = barycentric(v0, v1, v2, uv.x, uv.y);
+
+    auto& ns = scene.worldData.attrib.normals;
+    const v3f n0{ns[3 * idx0.normal_index + 0], ns[3 * idx0.normal_index + 1], ns[3 * idx0.normal_index + 2]};
+    const v3f n1{ns[3 * idx1.normal_index + 0], ns[3 * idx1.normal_index + 1], ns[3 * idx1.normal_index + 2]};
+    const v3f n2{ns[3 * idx2.normal_index + 0], ns[3 * idx2.normal_index + 1], ns[3 * idx2.normal_index + 2]};
+
+    n = glm::normalize(barycentric(n0, n1, n2, uv.x, uv.y));
+
+    pdf = 1.f / emitter.area;
 }
 
 

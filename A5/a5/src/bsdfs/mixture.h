@@ -60,10 +60,6 @@ struct MixtureBSDF : BSDF {
     v3f eval(const SurfaceInteraction& i) const override {
         v3f val(0.f);
         // TODO: Add previous assignment code (if needed)
-        //1. Check that the incoming ray is not hitting a backface (just like diffuse).
-        //2. Evaluate the Phong BRDF using Equation (1).
-        //3. Return this value multiplied by the cosine factor.
-
         v3f specDirection = reflect(i.wi);
         v3f diffuseReflect = diffuseReflectance->eval(worldData, i);
         v3f specReflect = specularReflectance->eval(worldData, i);
@@ -109,12 +105,9 @@ struct MixtureBSDF : BSDF {
         //    by calling MixtureBRDF:eval()
 
         v2f sampleCopy = _sample;
-
-
         float RRprob = sampleCopy.x;
 
-
-        //if RRprob leads to diffuse sampling
+        //if RRprob leads to specular sampling
         if (RRprob <= specularSamplingWeight) {
             sampleCopy.x = sampleCopy.x/specularSamplingWeight;
 
@@ -126,18 +119,20 @@ struct MixtureBSDF : BSDF {
 
             sampleDir = Warp::squareToPhongLobe(sampleCopy, exp);
 
-            //i.wi now in local space of the shading point
             i.wi = glm::normalize(i.frameNs.toLocal(newFrame.toWorld(sampleDir)));
 
         }
 
         else {
-            sampleCopy.x = sampleCopy.x/(1-specularSamplingWeight);
+            sampleCopy.x = (sampleCopy.x - specularSamplingWeight)/(1-specularSamplingWeight);
             i.wi = Warp::squareToCosineHemisphere(sampleCopy);
         }
 
         *pdf = this->pdf(i);
         val = this->eval(i);
+        if (this->pdf(i) <= 0.f) {
+            return v3f(0.f);
+        }
         return val;
     }
 
