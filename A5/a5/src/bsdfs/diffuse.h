@@ -69,9 +69,9 @@ struct DiffuseBSDF : BSDF {
         *pdf = this->pdf(i);
         val = this->eval(i);
 
-        if (this->pdf(i) <= 0.f) {
-            return v3f(0.f);
-        }
+//        if (this->pdf(i) <= 0.f) {
+//            return v3f(0.f);
+//        }
         return val;
     }
 

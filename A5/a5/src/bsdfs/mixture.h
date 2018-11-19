@@ -120,9 +120,7 @@ struct MixtureBSDF : BSDF {
             sampleDir = Warp::squareToPhongLobe(sampleCopy, exp);
 
             i.wi = glm::normalize(i.frameNs.toLocal(newFrame.toWorld(sampleDir)));
-
         }
-
         else {
             sampleCopy.x = (sampleCopy.x - specularSamplingWeight)/(1-specularSamplingWeight);
             i.wi = Warp::squareToCosineHemisphere(sampleCopy);
@@ -130,9 +128,9 @@ struct MixtureBSDF : BSDF {
 
         *pdf = this->pdf(i);
         val = this->eval(i);
-        if (this->pdf(i) <= 0.f) {
-            return v3f(0.f);
-        }
+//        if (this->pdf(i) <= 0.f) {
+//            return v3f(0.f);
+//        }
         return val;
     }
 

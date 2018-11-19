@@ -113,7 +113,6 @@ void Renderer::render() {
             SDL_GL_SwapWindow(renderpass->window);
         }
     } else {
-
         // 1.1 Off-line Rendering Loop
 
         v3f eye = scene.config.camera.o;
@@ -138,24 +137,23 @@ void Renderer::render() {
         // 3) Loop over all pixels on the image plane
         Sampler sampler = TinyRender::Sampler(260665795);
 //        ThreadPool::ParallelFor(0, scene.config.height, [&](int y) {
-//            int i = 0;
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
 
-                if (scene.config.spp == 1) {
-                    float px = (x - width / 2.f + 0.5f) / (width / 2.f) * scaling * aspectRatio;
-                    float py = -((y - height / 2.f + 0.5f) / (height / 2.f) * scaling);
-
-                    v4f aug4D = v4f(px, py, -1.f, 0.f);
-                    v4f dir = aug4D * inverseView;
-                    Ray ray = Ray(eye, dir);
-
-                    pixelColor = integrator->render(ray, sampler);
-                    integrator->rgb->data[y*scene.config.width + x] = pixelColor;
-//                    i++;
-                }
-//--------------------------------------BONUS-------------------------------------------
-                else {
+//                if (scene.config.spp == 1) {
+//                    float px = (x - width / 2.f + 0.5f) / (width / 2.f) * scaling * aspectRatio;
+//                    float py = -((y - height / 2.f + 0.5f) / (height / 2.f) * scaling);
+//
+//                    v4f aug4D = v4f(px, py, -1.f, 0.f);
+//                    v4f dir = aug4D * inverseView;
+//                    Ray ray = Ray(eye, dir);
+//
+//                    pixelColor = integrator->render(ray, sampler);
+//                    integrator->rgb->data[y*scene.config.width + x] = pixelColor;
+////                    i++;
+//                }
+////--------------------------------------BONUS-------------------------------------------
+//                else {
                     v3f sumColor = v3f(0.f, 0.f, 0.f);
                     for (j = 0; j < scene.config.spp; j++) {
                         float px = ((x - width / 2.f + sampler.next()) / (width / 2.f) * scaling * aspectRatio);
@@ -169,10 +167,7 @@ void Renderer::render() {
                         sumColor = sumColor + pixelColor;
                     }
                     integrator->rgb->data[y*scene.config.width + x] = sumColor;
-//                    cout << i;
-//                    cout << "\n";
-//                    i++;
-                }
+//                }
 //------------------------------------END OF BONUS--------------------------------------
             }
         }
