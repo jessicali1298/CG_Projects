@@ -17,17 +17,9 @@
       <change beforePath="$PROJECT_DIR$/../../A5/a5/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A5/a5/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A5/a5/cmake-build-release/tinyrender" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/cmake-build-release/tinyrender" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_0_bounce.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_0_bounce.exr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_0_bounce.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_0_bounce.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_1_bounce.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_1_bounce.exr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_1_bounce.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_1_bounce.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_2_bounces.exr" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_2_bounces.exr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_2_bounces.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_implicit_2_bounces.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/src/bsdfs/diffuse.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/src/bsdfs/diffuse.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/src/bsdfs/mixture.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/src/bsdfs/mixture.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/src/bsdfs/phong.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/src/bsdfs/phong.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/src/core/renderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/src/core/renderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_explicit_rr.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_explicit_rr.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A5/a5/src/integrators/path.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/src/integrators/path.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../A5/a5/src/renderpasses/gi.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/src/renderpasses/gi.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
@@ -56,13 +48,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="4" />
+          <entry key="cpp" value="5" />
           <entry key="h" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="ObjectiveC" value="17" />
+          <entry key="ObjectiveC" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -107,11 +99,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/integrators/direct.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
+            <state relative-caret-position="422">
               <caret line="192" column="47" selection-start-line="192" selection-start-column="47" selection-end-line="192" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/core/renderpass.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="417">
+              <caret line="248" lean-forward="true" selection-start-line="248" selection-end-line="248" />
             </state>
           </provider>
         </entry>
@@ -292,17 +293,18 @@
       <workItem from="1542389003321" duration="2048000" />
       <workItem from="1542493663267" duration="105000" />
       <workItem from="1542569455715" duration="7146000" />
-      <workItem from="1542641821492" duration="437000" />
+      <workItem from="1542641821492" duration="819000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84340000" />
+    <option name="totallyTimeSpent" value="84722000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1024" height="640" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14154786" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.03869654" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -413,8 +415,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/integrators/direct.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
+        <state relative-caret-position="422">
           <caret line="192" column="47" selection-start-line="192" selection-start-column="47" selection-end-line="192" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/renderpass.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="248" lean-forward="true" selection-start-line="248" selection-end-line="248" />
         </state>
       </provider>
     </entry>

@@ -18,4 +18,4 @@ type = "path"
 maxDepth = -1
 rrProb = 0.95
 rrDepth = 4
-spp = 128
+spp = 16

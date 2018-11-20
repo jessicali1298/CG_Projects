@@ -39,8 +39,53 @@ struct GIPass : RenderPass {
     virtual void buildVBO(size_t objectIdx) override {
         GLObject& obj = objects[objectIdx];
 
-        // TODO: Implement this
+//        // TODO: Implement this
+////        1.set an arbitrary ray direction (ωo) and shift the shading point position by ϵ
+////          along the normal to avoid self-intersections during integration.
+////        2.Create a SurfaceInteraction and manually populate its attributes.
+////        3.Call your PathTracerIntegrator->renderExplicit() with the incoming “ray”
+////          and the SurfaceInteraction references.
+//
+        obj.nVerts = scene.getObjectNbVertices(objectIdx);
+        obj.vertices.resize(obj.nVerts * N_ATTR_PER_VERT);
 
+        int k = 0;
+
+        for (size_t i = 0; i < obj.nVerts; i++) {
+            v3f normal = scene.getObjectVertexNormal(objectIdx, i);
+            v3f pos = scene.getObjectVertexPosition(objectIdx, i);
+            v3f RGB = v3f(0.f);
+
+            Sampler sampler = Sampler(260665795);
+
+            SurfaceInteraction info;
+            Ray ray(v3f(0.f), v3f(0.f, 1.f, 0.f));
+
+            info.wo = v3f(1.f,0.f,0.f);
+            info.p = pos + normal*Epsilon;
+            info.primID = scene.getPrimitiveID(i);
+            info.matID = scene.getMaterialID(objectIdx, info.primID);
+            info.shapeID = objectIdx;
+            info.frameNs = Frame(normal);
+            info.frameNg = Frame(normal);
+
+            // Position
+            obj.vertices[k + 0] = pos.x;
+            obj.vertices[k + 1] = pos.y;
+            obj.vertices[k + 2] = pos.z;
+
+            for (int j = 0; j < m_samplePerVertex; j++) {
+                RGB += m_ptIntegrator->renderExplicit(ray, sampler, info,0);
+            }
+            RGB /= m_samplePerVertex;
+            // RGB
+            obj.vertices[k + 3] = RGB.x;
+            obj.vertices[k + 4] = RGB.y;
+            obj.vertices[k + 5] = RGB.z;
+
+            k += N_ATTR_PER_VERT;
+
+        }
         // VBO
         glGenVertexArrays(1, &obj.vao);
         glBindVertexArray(obj.vao);
@@ -95,6 +140,34 @@ struct GIPass : RenderPass {
         glEnable(GL_DEPTH_TEST);
 
         // TODO: Implement this
+
+        // Define shader to use
+        glUseProgram(shader);
+
+        // Update camera
+        glm::mat4 model, view, projection;
+        camera.Update();
+        camera.GetMatricies(projection, view, model);
+
+        // Pass uniforms
+        glUniformMatrix4fv(modelMatUniform, 1, GL_FALSE, &(modelMat[0][0]));
+        glUniformMatrix4fv(viewMatUniform, 1, GL_FALSE, &(view[0][0]));
+        glUniformMatrix4fv(projectionMatUniform, 1, GL_FALSE, &(projection[0][0]));
+//        glUniformMatrix4fv(normalMatUniform, 1, GL_FALSE, &(normalMat[0][0]));
+
+        // Draw
+        for (auto& object : objects) {
+            /**
+             * 1) Bind vertex array of current object.
+             * 2) Draw its triangles.
+             * 3) Bind vertex array to 0.
+             */
+            // TODO: Implement this
+            glBindVertexArray(object.vbo);
+            glDrawArrays(GL_TRIANGLES,0,object.nVerts);
+            glBindVertexArray(0);
+        }
+
 
         RenderPass::render();
     }
