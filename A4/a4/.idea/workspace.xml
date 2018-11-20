@@ -13,12 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e158fdaa-ae52-4fb0-9c81-f2951db34888" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A5/a5/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/cmake-build-release/CMakeFiles/tinyrender.dir/src/core/renderer.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/cmake-build-release/tinyrender" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/cmake-build-release/tinyrender" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_explicit_rr.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/data/a5/cbox/tinyrender/cbox_path_explicit_rr.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../A5/a5/src/integrators/path.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/src/integrators/path.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../A5/a5/src/renderpasses/gi.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../A5/a5/src/renderpasses/gi.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -111,8 +106,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/core/renderpass.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="248" lean-forward="true" selection-start-line="248" selection-end-line="248" />
+            <state relative-caret-position="487">
+              <caret line="253" column="35" lean-forward="true" selection-start-line="253" selection-start-column="35" selection-end-line="253" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -293,12 +288,12 @@
       <workItem from="1542389003321" duration="2048000" />
       <workItem from="1542493663267" duration="105000" />
       <workItem from="1542569455715" duration="7146000" />
-      <workItem from="1542641821492" duration="819000" />
+      <workItem from="1542641821492" duration="1184000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84722000" />
+    <option name="totallyTimeSpent" value="85087000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1024" height="640" extended-state="0" />
@@ -422,8 +417,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/core/renderpass.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="248" lean-forward="true" selection-start-line="248" selection-end-line="248" />
+        <state relative-caret-position="487">
+          <caret line="253" column="35" lean-forward="true" selection-start-line="253" selection-start-column="35" selection-end-line="253" selection-end-column="35" />
         </state>
       </provider>
     </entry>

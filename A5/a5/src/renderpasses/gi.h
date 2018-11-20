@@ -40,11 +40,11 @@ struct GIPass : RenderPass {
         GLObject& obj = objects[objectIdx];
 
 //        // TODO: Implement this
-////        1.set an arbitrary ray direction (ωo) and shift the shading point position by ϵ
-////          along the normal to avoid self-intersections during integration.
-////        2.Create a SurfaceInteraction and manually populate its attributes.
-////        3.Call your PathTracerIntegrator->renderExplicit() with the incoming “ray”
-////          and the SurfaceInteraction references.
+//        1.set an arbitrary ray direction (ωo) and shift the shading point position by ϵ
+//          along the normal to avoid self-intersections during integration.
+//        2.Create a SurfaceInteraction and manually populate its attributes.
+//        3.Call your PathTracerIntegrator->renderExplicit() with the incoming “ray”
+//          and the SurfaceInteraction references.
 //
         obj.nVerts = scene.getObjectNbVertices(objectIdx);
         obj.vertices.resize(obj.nVerts * N_ATTR_PER_VERT);
@@ -74,11 +74,12 @@ struct GIPass : RenderPass {
             obj.vertices[k + 1] = pos.y;
             obj.vertices[k + 2] = pos.z;
 
+            //accumulate RGB data in vertex then take the average
             for (int j = 0; j < m_samplePerVertex; j++) {
                 RGB += m_ptIntegrator->renderExplicit(ray, sampler, info,0);
             }
             RGB /= m_samplePerVertex;
-            // RGB
+
             obj.vertices[k + 3] = RGB.x;
             obj.vertices[k + 4] = RGB.y;
             obj.vertices[k + 5] = RGB.z;
@@ -153,7 +154,6 @@ struct GIPass : RenderPass {
         glUniformMatrix4fv(modelMatUniform, 1, GL_FALSE, &(modelMat[0][0]));
         glUniformMatrix4fv(viewMatUniform, 1, GL_FALSE, &(view[0][0]));
         glUniformMatrix4fv(projectionMatUniform, 1, GL_FALSE, &(projection[0][0]));
-//        glUniformMatrix4fv(normalMatUniform, 1, GL_FALSE, &(normalMat[0][0]));
 
         // Draw
         for (auto& object : objects) {
@@ -167,8 +167,6 @@ struct GIPass : RenderPass {
             glDrawArrays(GL_TRIANGLES,0,object.nVerts);
             glBindVertexArray(0);
         }
-
-
         RenderPass::render();
     }
 
